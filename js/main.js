@@ -1,29 +1,44 @@
+// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
+
+function getRandomFloat (min, max, decimals) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  return (Math.random() * (upper - lower) + lower).toFixed(decimals);
+}
+
 // Функция, возвращающая случайное целое число из переданного диапазона включительно:
 
 
 function getRandomNumber (min, max) {
-  if (max <= 0 || min <= 0) {
-    console.log('Диапазон может быть только положительный');
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
+  if (result < 10) {
+    return `0${  result}`;
   }
-  else if (max <= min) {
-    console.log('Максимальное значение не может быть меньше или равно минимальному');
-  }
-  else {
-    return Math.floor(Math.random() * (max - min) + min);
-  }
+  return result;
+}
+
+function getRandomUnicNumber (getRandomNumber) {
+  return getRandomNumber;
 }
 
 
-// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
 
-function getRandomFloat (min, max, decimals) {
-  if (max <= 0 || min <= 0) {
-    console.log('Диапазон может быть только положительный');
-  }
-  else if (max <= min) {
-    console.log('Максимальное значение не может быть меньше или равно минимальному');
-  }
-  else {
-    return (Math.random() * (max - min) + min).toFixed(decimals);
-  }
-}
+const AUTHOR = {
+  avatar: 'img/avatars/user' + getRandomUnicNumber(getRandomNumber(0, 10)) + '.png,'
+};
+
+const createAdvertisements = () => {
+  return {
+    AUTHOR
+  };
+};
+
+const similarAdvertisements = Array.from({length: 3}, createAdvertisements);
+
+console.log(similarAdvertisements);
+
+
+
+
