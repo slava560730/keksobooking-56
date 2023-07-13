@@ -15,7 +15,7 @@ function getRandomNumber (min, max) {
   const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
   return result;
 }
-const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const numbers = [];
 const FEATURES = [
   'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'
 ];
@@ -65,48 +65,54 @@ const DESCRIPTIONS = [
   'Located close to Shimokitazawa, which continues to change day by day. '
 ];
 
-// function createNumbers (min, max) {
-//   for (let i = min; i <= max; i++) {
-//     numbers.push(i);
-// }
-//   return numbers;
-// }
+function createNumbers (min, max) {
+  for (let i = min; i <= max; i++) {
+    numbers.push(i);
+  }
+}
 
 
 function createImgNumber () {
   // const newImages = [];
-  const randomIndex = getRandomNumber(0, NUMBERS.length - 1);
-  const random = Number(NUMBERS.splice(randomIndex, 1));
+  const randomIndex = getRandomNumber(0, numbers.length - 1);
+  const random = Number(numbers.splice(randomIndex, 1));
   // newImages.push(random);
   return random < 10 ? `0${random}`: random;
 }
 
+// console.log(createImgNumber ())
+
+// eslint-disable-next-line no-shadow
 function getFeatures(FEATURES) {
   const maxLength = FEATURES.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
   const randomFeatures = [];
 
   while (randomFeatures.length < lenghtOfArray) {
-  const indexOfEl = getRandomNumber(0, maxLength - 1);
-  const el = FEATURES[indexOfEl];
+    const indexOfEl = getRandomNumber(0, maxLength - 1);
+    const el = FEATURES[indexOfEl];
 
-  if (!randomFeatures.includes(el)) {
+    if (!randomFeatures.includes(el)) {
       randomFeatures.push(el);
     }
   }
   return randomFeatures;
 }
 
+// console.log(getFeatures(FEATURES));
+
+
+// eslint-disable-next-line no-shadow
 function getPhotos(PHOTOS) {
   const maxLength = PHOTOS.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
   const randomPHOTOS = [];
 
   while (randomPHOTOS.length < lenghtOfArray) {
-  const indexOfEl = getRandomNumber(0, maxLength - 1);
-  const el = PHOTOS[indexOfEl];
+    const indexOfEl = getRandomNumber(0, maxLength - 1);
+    const el = PHOTOS[indexOfEl];
 
-  if (!randomPHOTOS.includes(el)) {
+    if (!randomPHOTOS.includes(el)) {
       randomPHOTOS.push(el);
     }
   }
@@ -115,43 +121,39 @@ function getPhotos(PHOTOS) {
 
 // console.log(getPhotos(PHOTOS));
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomNumber(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-const createAdvertisements = () => {
+const  createAdvertisements= () => {
   const AUTHOR = {
-    avatar: 'img/avatars/user' + createImgNumber () + '.png,'
+    avatar: `img/avatars/user${  createImgNumber ()  }.png,`
   };
   const OFFER = {
-  title: getRandomArrayElement(TITLES),
-  address: '{location.lat}, {{location.lng}',
-  price: getRandomNumber(1000, 10000),
-  type: getRandomArrayElement(TYPES),
-  rooms: getRandomNumber(1, 4),
-  guests: getRandomNumber(1, 4),
-  checkin: getRandomArrayElement(TIME),
-  checkout: getRandomArrayElement(TIME),
-  features: getFeatures(FEATURES),
-  description: getRandomArrayElement(DESCRIPTIONS),
-  photos: getPhotos(PHOTOS)
-};
+    title: getRandomArrayElement(TITLES),
+    address: '{location.lat}, {{location.lng}',
+    price: getRandomNumber(1000, 10000),
+    type: getRandomArrayElement(TYPES),
+    rooms: getRandomNumber(1, 4),
+    guests: getRandomNumber(1, 4),
+    checkin: getRandomArrayElement(TIME),
+    checkout: getRandomArrayElement(TIME),
+    features: getFeatures(FEATURES).toString(),
+    description: getRandomArrayElement(DESCRIPTIONS),
+    photos: getPhotos(PHOTOS).toString()
+  };
   const LOCATION = {
-  lat: getRandomFloat (35.65000, 35.70000, 5),
-  lng: getRandomFloat (139.70000, 139.80000, 5)
+    lat: getRandomFloat (35.65000, 35.70000, 5),
+    lng: getRandomFloat (139.70000, 139.80000, 5)
   };
   return {
     AUTHOR, OFFER, LOCATION
   };
 };
 
+createNumbers (1, 10);
 const similarAdvertisements = Array.from({length: 10}, createAdvertisements);
 
 
+// eslint-disable-next-line no-console
 console.log(similarAdvertisements);
-
-
-
-
 
 
