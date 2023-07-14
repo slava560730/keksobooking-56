@@ -131,17 +131,18 @@ function getPhotos(PHOTOS) {
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
+
 const  createAdvertisements= () => {
   const author = {
     avatar: `img/avatars/user${  createImgNumber ()  }.png,`
   };
-    const location = {
+  const location = {
     lat: getRandomFloat (minLocationLat, maxLocationLat, LocationLatDecimals),
     lng: getRandomFloat (minLocationLng, maxLocationLng, LocationLngDecimals)
   };
   const offer = {
     title: getRandomArrayElement(TITLES),
-    address: location.lat,
+    address: location,
     price: getRandomNumber(minPrice, maxPrice),
     type: getRandomArrayElement(TYPES),
     rooms: getRandomNumber(minRooms, maxRooms),
@@ -160,7 +161,5 @@ const  createAdvertisements= () => {
 
 createNumbers (minImgNumber, maxImgNumber);
 const similarAdvertisements = Array.from({length: Advertisements}, createAdvertisements);
-
-console.log(similarAdvertisements);
 
 
