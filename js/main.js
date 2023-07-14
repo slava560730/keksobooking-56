@@ -1,30 +1,3 @@
-// Функция, возвращающая случайное число с плавающей точкой из переданного диапазона включительно.
-
-function getRandomFloat (min, max, decimals) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  return (Math.random() * (upper - lower) + lower).toFixed(decimals);
-}
-
-// Функция, возвращающая случайное целое число из переданного диапазона включительно:
-
-
-function getRandomNumber (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
-  return result;
-}
-const numbers = [];
-const FEATURES = [
-  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'
-];
-const PHOTOS = [
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-];
-
 const TITLES = [
   'Tairamachi Chome House',
   'Yoyogi Cho Me House',
@@ -37,7 +10,6 @@ const TITLES = [
   'Kito Minamihayama',
   'Glass Facade Residence'
 ];
-
 const TYPES = [
   'palace',
   'flat',
@@ -45,13 +17,14 @@ const TYPES = [
   'bungalow',
   'hotel'
 ];
-
 const TIME = [
   '12:00',
   '13:00',
-  '14:00',
+  '14:00'
 ];
-
+const FEATURES = [
+  'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'
+];
 const DESCRIPTIONS = [
   'A luxury designer apartment located in a high-class residential area which is locally called Chojamaru.',
   'Only 1 min. walk from Daikanyama Sta.! This location makes it possible to enjoy Daikanyama life completely.',
@@ -64,25 +37,64 @@ const DESCRIPTIONS = [
   'Located in a quiet residential area within an 8-min walk of Kaminoge Station. It is a house facing south having plenty of sunlight. ',
   'Located close to Shimokitazawa, which continues to change day by day. '
 ];
+const PHOTOS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+];
+
+const minImgNumber = 1;
+const maxImgNumber = 10;
+const numbers = [];
+
+const minPrice = 1000;
+const maxPrice = 10000;
+
+const minRooms = 1;
+const maxRooms = 5;
+
+const minGuests = 1;
+const maxGuests = 4;
+
+const minLocationLat = 35.65000;
+const maxLocationLat = 35.70000;
+const LocationLatDecimals = 5;
+
+const minLocationLng = 139.70000;
+const maxLocationLng = 139.80000;
+const LocationLngDecimals = 5;
+
+const Advertisements = 10;
+
+function getRandomFloat (min, max, decimals) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+
+  return (Math.random() * (upper - lower) + lower).toFixed(decimals);
+}
+
+function getRandomNumber (min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.floor(Math.random() * (upper - lower + 1) + lower);
+
+  return result;
+}
 
 function createNumbers (min, max) {
+
   for (let i = min; i <= max; i++) {
     numbers.push(i);
   }
 }
 
-
 function createImgNumber () {
-  // const newImages = [];
   const randomIndex = getRandomNumber(0, numbers.length - 1);
   const random = Number(numbers.splice(randomIndex, 1));
-  // newImages.push(random);
-  return random < 10 ? `0${random}`: random;
+
+  return random < maxImgNumber ? `0${random}`: random;
 }
 
-// console.log(createImgNumber ())
-
-// eslint-disable-next-line no-shadow
 function getFeatures(FEATURES) {
   const maxLength = FEATURES.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
@@ -96,13 +108,10 @@ function getFeatures(FEATURES) {
       randomFeatures.push(el);
     }
   }
+
   return randomFeatures;
 }
 
-// console.log(getFeatures(FEATURES));
-
-
-// eslint-disable-next-line no-shadow
 function getPhotos(PHOTOS) {
   const maxLength = PHOTOS.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
@@ -116,44 +125,42 @@ function getPhotos(PHOTOS) {
       randomPHOTOS.push(el);
     }
   }
+
   return randomPHOTOS;
 }
-
-// console.log(getPhotos(PHOTOS));
 
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 const  createAdvertisements= () => {
-  const AUTHOR = {
+  const author = {
     avatar: `img/avatars/user${  createImgNumber ()  }.png,`
   };
-  const OFFER = {
+    const location = {
+    lat: getRandomFloat (minLocationLat, maxLocationLat, LocationLatDecimals),
+    lng: getRandomFloat (minLocationLng, maxLocationLng, LocationLngDecimals)
+  };
+  const offer = {
     title: getRandomArrayElement(TITLES),
-    address: '{location.lat}, {{location.lng}',
-    price: getRandomNumber(1000, 10000),
+    address: location.lat,
+    price: getRandomNumber(minPrice, maxPrice),
     type: getRandomArrayElement(TYPES),
-    rooms: getRandomNumber(1, 4),
-    guests: getRandomNumber(1, 4),
+    rooms: getRandomNumber(minRooms, maxRooms),
+    guests: getRandomNumber(minGuests, maxGuests),
     checkin: getRandomArrayElement(TIME),
     checkout: getRandomArrayElement(TIME),
-    features: getFeatures(FEATURES).toString(),
+    features: getFeatures(FEATURES),
     description: getRandomArrayElement(DESCRIPTIONS),
-    photos: getPhotos(PHOTOS).toString()
+    photos: getPhotos(PHOTOS)
   };
-  const LOCATION = {
-    lat: getRandomFloat (35.65000, 35.70000, 5),
-    lng: getRandomFloat (139.70000, 139.80000, 5)
-  };
+
   return {
-    AUTHOR, OFFER, LOCATION
+    author, offer, location
   };
 };
 
-createNumbers (1, 10);
-const similarAdvertisements = Array.from({length: 10}, createAdvertisements);
+createNumbers (minImgNumber, maxImgNumber);
+const similarAdvertisements = Array.from({length: Advertisements}, createAdvertisements);
 
-
-// eslint-disable-next-line no-console
 console.log(similarAdvertisements);
 
 
