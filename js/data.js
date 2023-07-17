@@ -84,7 +84,7 @@ function createNumbers (min, max) {
   }
 }
 
-function getFeatures(FEATURES) {
+function getFeatures() {
   const maxLength = FEATURES.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
   const randomFeatures = [];
@@ -101,7 +101,7 @@ function getFeatures(FEATURES) {
   return randomFeatures;
 }
 
-function getPhotos(PHOTOS) {
+function getPhotos() {
   const maxLength = PHOTOS.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
   const randomPHOTOS = [];
@@ -135,9 +135,9 @@ const  createAdvertisements= () => {
     guests: getRandomNumber(minGuests, maxGuests),
     checkin: getRandomArrayElement(TIME),
     checkout: getRandomArrayElement(TIME),
-    features: getFeatures(FEATURES),
+    features: getFeatures(),
     description: getRandomArrayElement(DESCRIPTIONS),
-    photos: getPhotos(PHOTOS)
+    photos: getPhotos()
   };
 
   return {
