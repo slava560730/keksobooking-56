@@ -151,3 +151,5 @@ const similarAdvertisements = Array.from({length: Advertisements}, createAdverti
 export {similarAdvertisements};
 export {createAdvertisements};
 export {PHOTOS};
+
+
