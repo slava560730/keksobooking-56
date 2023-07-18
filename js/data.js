@@ -149,3 +149,5 @@ createNumbers (minImgNumber, maxImgNumber);
 const similarAdvertisements = Array.from({length: Advertisements}, createAdvertisements);
 
 export {similarAdvertisements};
+export {createAdvertisements};
+export {PHOTOS};
