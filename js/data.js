@@ -118,6 +118,30 @@ function getPhotos() {
   return randomPHOTOS;
 }
 
+function syncTypes() {
+  const randomTypes = getRandomArrayElement(TYPES);
+  let type;
+  switch (randomTypes) {
+   case 'flat':
+    type ='Квартира';
+    break;
+   case 'palace':
+    type ='Дворец';
+   break;
+   case 'bungalow':
+    type ='Бунгало';
+   break;
+   case 'house':
+    type ='Дом';
+   break;
+   case 'hotel':
+    type ='Отель';
+   break;
+  };
+
+  return type;
+}
+
 const  createAdvertisements= () => {
   const author = {
     avatar: `img/avatars/user${  createImgNumber ()  }.png,`
@@ -151,5 +175,5 @@ const similarAdvertisements = Array.from({length: Advertisements}, createAdverti
 export {similarAdvertisements};
 export {createAdvertisements};
 export {PHOTOS};
-
+export {syncTypes};
 
