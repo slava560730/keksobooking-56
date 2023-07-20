@@ -67,6 +67,8 @@ const LocationLatDecimals = 5;
 const minLocationLng = 139.70000;
 const maxLocationLng = 139.80000;
 const LocationLngDecimals = 5;
+const lat = getRandomFloat (minLocationLat, maxLocationLat, LocationLatDecimals);
+const lng = getRandomFloat (minLocationLng, maxLocationLng, LocationLngDecimals);
 
 const Advertisements = 10;
 
@@ -146,10 +148,7 @@ const  createAdvertisements= () => {
   const author = {
     avatar: `img/avatars/user${  createImgNumber ()  }.png`
   };
-  const location = {
-    lat: getRandomFloat (minLocationLat, maxLocationLat, LocationLatDecimals),
-    lng: getRandomFloat (minLocationLng, maxLocationLng, LocationLngDecimals)
-  };
+  const location = [lat, lng];
   const offer = {
     title: getRandomArrayElement(TITLES),
     address: location,

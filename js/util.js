@@ -27,6 +27,27 @@ function fillInnPhotos (element, photos) {
     );
   } );
 }
+
+function fillInnElement (element, value, property = 'textContent') {
+  element[property] = value;
+}
+
+function checkValueOfElement (element, value, property = 'textContent') {
+  if (value) {
+    fillInnElement (element, value, property);
+  } else {
+    removeElement(element);
+  }
+}
+
+function checkValueOfPhoto (element, photos) {
+  if (photos.length > 0) {
+    fillInnPhotos(element, photos);
+  } else {
+    removeElement(element);
+  }
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 export {getRandomNumber};
@@ -34,3 +55,5 @@ export {getRandomFloat};
 export {getRandomArrayElement};
 export {removeElement};
 export {fillInnPhotos};
+export {checkValueOfPhoto};
+export {checkValueOfElement};
