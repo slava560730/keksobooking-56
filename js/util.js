@@ -1,5 +1,3 @@
-
-
 function getRandomNumber (min, max) {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
@@ -53,7 +51,5 @@ const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements
 export {getRandomNumber};
 export {getRandomFloat};
 export {getRandomArrayElement};
-export {removeElement};
-export {fillInnPhotos};
 export {checkValueOfPhoto};
 export {checkValueOfElement};

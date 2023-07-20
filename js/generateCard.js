@@ -1,7 +1,6 @@
 import {similarAdvertisements, syncTypes} from './data.js';
 import {checkValueOfPhoto, checkValueOfElement} from './util.js';
 
-const containerOfAdds = document.querySelector('.map__canvas');
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
 
@@ -22,7 +21,7 @@ generateAdvertisements.forEach((el) => {
   const avatarContainer =  CardElement.querySelector('.popup__avatar');
   checkValueOfElement(titleContainer, offer.title);
   checkValueOfElement(adressContainer, offer.address);
-  checkValueOfElement(priceContainer, `${offer.price  }₽/ночь`);
+  checkValueOfElement(priceContainer, `${offer.price  } ₽/ночь`);
   checkValueOfElement(typeContainer, syncTypes());
   checkValueOfElement(capacityContainer, `${offer.rooms  } комнаты для ${  offer.guests} гостей`);
   checkValueOfElement(timeContainer, `Заезд послe ${  offer.checkin}, выезд до ${  offer.checkout}`);
@@ -31,6 +30,8 @@ generateAdvertisements.forEach((el) => {
   checkValueOfElement(avatarContainer, author.avatar, 'src' );
   photoContainer.querySelector('.popup__photo').remove();
   checkValueOfPhoto(photoContainer, offer.photos);
-  containerOfAdds.appendChild(CardElement);
+  // const containerOfAdds = document.querySelector('.map__canvas');
+  // containerOfAdds.appendChild(CardElement);
 });
+
 
