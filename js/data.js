@@ -47,36 +47,34 @@ const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
 ];
 
-const minImgNumber = 1;
-const maxImgNumber = 10;
+const MIN_IMG_NUMBER = 1;
+const MAX_IMG_NUMBER = 10;
 const numbers = [];
 
-const minPrice = 1000;
-const maxPrice = 10000;
+const MIN_PRICE = 1000;
+const MAX_PRICE = 10000;
 
-const minRooms = 1;
-const maxRooms = 5;
+const MIN_ROOMS = 1;
+const MAX_ROOMS = 5;
 
-const minGuests = 1;
-const maxGuests = 4;
+const MIN_GUESTS = 1;
+const MAX_GUESTS = 4;
 
-const minLocationLat = 35.65000;
-const maxLocationLat = 35.70000;
-const LocationLatDecimals = 5;
+const MIN_LOCATION_LAT = 35.65000;
+const MAX_LOCATION_LAT = 35.70000;
+const LOCATION_LAT_DECIMALS = 5;
 
-const minLocationLng = 139.70000;
-const maxLocationLng = 139.80000;
-const LocationLngDecimals = 5;
-const lat = getRandomFloat (minLocationLat, maxLocationLat, LocationLatDecimals);
-const lng = getRandomFloat (minLocationLng, maxLocationLng, LocationLngDecimals);
+const MIN_LOCATION_LNG = 139.70000;
+const MAX_LOCATION_LNG = 139.80000;
+const LOCATION_LNG_DECIMALS = 5;
 
-const Advertisements = 10;
+const ADVERTISEMENTS = 1;
 
 function createImgNumber () {
   const randomIndex = getRandomNumber(0, numbers.length - 1);
   const random = Number(numbers.splice(randomIndex, 1));
 
-  return random < maxImgNumber ? `0${random}`: random;
+  return random < MAX_IMG_NUMBER ? `0${random}`: random;
 }
 
 function createNumbers (min, max) {
@@ -86,38 +84,20 @@ function createNumbers (min, max) {
   }
 }
 
-function getFeatures() {
-  const maxLength = FEATURES.length;
+function getRandomElement(array) {
+  const maxLength = array.length;
   const lenghtOfArray = getRandomNumber(1, maxLength);
-  const randomFeatures = [];
+  const randomArray = [];
 
-  while (randomFeatures.length < lenghtOfArray) {
+  while (randomArray.length < lenghtOfArray) {
     const indexOfEl = getRandomNumber(0, maxLength - 1);
-    const el = FEATURES[indexOfEl];
+    const el = array[indexOfEl];
 
-    if (!randomFeatures.includes(el)) {
-      randomFeatures.push(el);
+    if (!randomArray.includes(el)) {
+      randomArray.push(el);
     }
   }
-
-  return randomFeatures;
-}
-
-function getPhotos() {
-  const maxLength = PHOTOS.length;
-  const lenghtOfArray = getRandomNumber(1, maxLength);
-  const randomPHOTOS = [];
-
-  while (randomPHOTOS.length < lenghtOfArray) {
-    const indexOfEl = getRandomNumber(0, maxLength - 1);
-    const el = PHOTOS[indexOfEl];
-
-    if (!randomPHOTOS.includes(el)) {
-      randomPHOTOS.push(el);
-    }
-  }
-
-  return randomPHOTOS;
+  return randomArray;
 }
 
 function syncTypes() {
@@ -146,21 +126,24 @@ function syncTypes() {
 
 const  createAdvertisements= () => {
   const author = {
-    avatar: `img/avatars/user${  createImgNumber ()  }.png`
+    avatar: `img/avatars/user${createImgNumber()}.png`
   };
-  const location = [lat, lng];
+  const location = {
+    lat: getRandomFloat (MIN_LOCATION_LAT, MAX_LOCATION_LAT, LOCATION_LAT_DECIMALS),
+    lng: getRandomFloat (MIN_LOCATION_LNG, MAX_LOCATION_LNG, LOCATION_LNG_DECIMALS)
+  };
   const offer = {
     title: getRandomArrayElement(TITLES),
     address: location,
-    price: getRandomNumber(minPrice, maxPrice),
+    price: getRandomNumber(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES),
-    rooms: getRandomNumber(minRooms, maxRooms),
-    guests: getRandomNumber(minGuests, maxGuests),
+    rooms: getRandomNumber(MIN_ROOMS, MAX_ROOMS),
+    guests: getRandomNumber(MIN_GUESTS, MAX_GUESTS),
     checkin: getRandomArrayElement(TIME),
     checkout: getRandomArrayElement(TIME),
-    features: getFeatures(),
+    features: getRandomElement(FEATURES),
     description: getRandomArrayElement(DESCRIPTIONS),
-    photos: getPhotos()
+    photos: getRandomElement(PHOTOS)
   };
 
   return {
@@ -168,8 +151,8 @@ const  createAdvertisements= () => {
   };
 };
 
-createNumbers (minImgNumber, maxImgNumber);
-const similarAdvertisements = Array.from({length: Advertisements}, createAdvertisements);
+createNumbers (MIN_IMG_NUMBER, MAX_IMG_NUMBER);
+const similarAdvertisements = Array.from({length: ADVERTISEMENTS}, createAdvertisements);
 
 export {similarAdvertisements};
 export {syncTypes};

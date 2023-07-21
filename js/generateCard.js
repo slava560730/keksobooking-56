@@ -4,9 +4,7 @@ import {checkValueOfPhoto, checkValueOfElement} from './util.js';
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
 
-const generateAdvertisements = similarAdvertisements;
-
-generateAdvertisements.forEach((el) => {
+similarAdvertisements.forEach((el) => {
   const {offer, author} = el;
   const CardElement = CardTemplate.cloneNode(true);
   const photoContainer = CardElement.querySelector('.popup__photos');
@@ -30,8 +28,8 @@ generateAdvertisements.forEach((el) => {
   checkValueOfElement(avatarContainer, author.avatar, 'src' );
   photoContainer.querySelector('.popup__photo').remove();
   checkValueOfPhoto(photoContainer, offer.photos);
-  // const containerOfAdds = document.querySelector('.map__canvas');
-  // containerOfAdds.appendChild(CardElement);
+  const containerOfAdds = document.querySelector('.map__canvas');
+  containerOfAdds.appendChild(CardElement);
 });
 
 
