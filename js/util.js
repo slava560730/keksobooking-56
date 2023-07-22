@@ -46,6 +46,44 @@ function checkValueOfPhoto (element, photos) {
   }
 }
 
+function inclineTermonOfRooms (element) {
+  switch (element) {
+    case  1:
+      return ' комната';
+    case 2:
+    case 3:
+    case 4:
+      return ' комнаты';
+    default:
+      return ' комнат';
+  }
+}
+
+function inclineTermonOfGuests (element) {
+  switch (element) {
+    case 1:
+      return  ' гостя';
+    default:
+      return  ' гостей';
+  }
+}
+
+function getRandomElement(array) {
+  const maxLength = array.length;
+  const lenghtOfArray = getRandomNumber(1, maxLength);
+  const randomArray = [];
+
+  while (randomArray.length < lenghtOfArray) {
+    const indexOfEl = getRandomNumber(0, maxLength - 1);
+    const el = array[indexOfEl];
+
+    if (!randomArray.includes(el)) {
+      randomArray.push(el);
+    }
+  }
+  return randomArray;
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 export {getRandomNumber};
@@ -53,3 +91,6 @@ export {getRandomFloat};
 export {getRandomArrayElement};
 export {checkValueOfPhoto};
 export {checkValueOfElement};
+export {inclineTermonOfRooms};
+export {inclineTermonOfGuests};
+export {getRandomElement};

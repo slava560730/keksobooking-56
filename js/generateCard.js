@@ -1,5 +1,5 @@
-import {similarAdvertisements, syncTypes} from './data.js';
-import {checkValueOfPhoto, checkValueOfElement} from './util.js';
+import {similarAdvertisements, syncTypesToRussian} from './data.js';
+import {checkValueOfPhoto, checkValueOfElement, inclineTermonOfRooms, inclineTermonOfGuests} from './util.js';
 
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
@@ -20,8 +20,8 @@ similarAdvertisements.forEach((el) => {
   checkValueOfElement(titleContainer, offer.title);
   checkValueOfElement(adressContainer, offer.address);
   checkValueOfElement(priceContainer, `${offer.price  } ₽/ночь`);
-  checkValueOfElement(typeContainer, syncTypes());
-  checkValueOfElement(capacityContainer, `${offer.rooms  } комнаты для ${  offer.guests} гостей`);
+  checkValueOfElement(typeContainer, syncTypesToRussian(offer.type));
+  checkValueOfElement(capacityContainer, `${offer.rooms + inclineTermonOfRooms(offer.rooms)  }  для ${  offer.guests + inclineTermonOfGuests(offer.guests)}`);
   checkValueOfElement(timeContainer, `Заезд послe ${  offer.checkin}, выезд до ${  offer.checkout}`);
   checkValueOfElement(featuresContainer, offer.features);
   checkValueOfElement(descriptionContainer, offer.description);

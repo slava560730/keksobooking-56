@@ -1,4 +1,4 @@
-import {getRandomNumber} from './util.js';
+import {getRandomElement, getRandomNumber} from './util.js';
 import {getRandomFloat} from './util.js';
 import {getRandomArrayElement} from './util.js';
 
@@ -84,44 +84,19 @@ function createNumbers (min, max) {
   }
 }
 
-function getRandomElement(array) {
-  const maxLength = array.length;
-  const lenghtOfArray = getRandomNumber(1, maxLength);
-  const randomArray = [];
-
-  while (randomArray.length < lenghtOfArray) {
-    const indexOfEl = getRandomNumber(0, maxLength - 1);
-    const el = array[indexOfEl];
-
-    if (!randomArray.includes(el)) {
-      randomArray.push(el);
-    }
-  }
-  return randomArray;
-}
-
-function syncTypes() {
-  const randomTypes = getRandomArrayElement(TYPES);
-  let type;
-  switch (randomTypes) {
+function syncTypesToRussian(element) {
+  switch (element) {
     case 'flat':
-      type ='Квартира';
-      break;
+      return 'Квартира';
     case 'palace':
-      type ='Дворец';
-      break;
+      return 'Дворец';
     case 'bungalow':
-      type ='Бунгало';
-      break;
+      return 'Бунгало';
     case 'house':
-      type ='Дом';
-      break;
+      return 'Дом';
     case 'hotel':
-      type ='Отель';
-      break;
+      return 'Отель';
   }
-
-  return type;
 }
 
 const  createAdvertisements= () => {
@@ -134,7 +109,7 @@ const  createAdvertisements= () => {
   };
   const offer = {
     title: getRandomArrayElement(TITLES),
-    address: location,
+    address: `${location.lat  } ${  location.lng.toString()}`,
     price: getRandomNumber(MIN_PRICE, MAX_PRICE),
     type: getRandomArrayElement(TYPES),
     rooms: getRandomNumber(MIN_ROOMS, MAX_ROOMS),
@@ -155,5 +130,5 @@ createNumbers (MIN_IMG_NUMBER, MAX_IMG_NUMBER);
 const similarAdvertisements = Array.from({length: ADVERTISEMENTS}, createAdvertisements);
 
 export {similarAdvertisements};
-export {syncTypes};
+export {syncTypesToRussian};
 
