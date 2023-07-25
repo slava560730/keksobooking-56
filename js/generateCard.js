@@ -4,8 +4,7 @@ import {checkValueOfPhoto, checkValueOfElement, inclineTermonOfRooms, inclineTer
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
 
-similarAdvertisements.forEach((el) => {
-  const {offer, author} = el;
+similarAdvertisements.forEach(({offer, author}) => {
   const CardElement = CardTemplate.cloneNode(true);
   const photoContainer = CardElement.querySelector('.popup__photos');
   const titleContainer = CardElement.querySelector('.popup__title');
@@ -17,6 +16,7 @@ similarAdvertisements.forEach((el) => {
   const featuresContainer =  CardElement.querySelector('.popup__features');
   const descriptionContainer =  CardElement.querySelector('.popup__description');
   const avatarContainer =  CardElement.querySelector('.popup__avatar');
+
   checkValueOfElement(titleContainer, offer.title);
   checkValueOfElement(adressContainer, offer.address);
   checkValueOfElement(priceContainer, `${offer.price  } ₽/ночь`);
