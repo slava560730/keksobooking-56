@@ -2,11 +2,17 @@ const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
 const filtersContainer = document.querySelector('.map__filters');
 const filtersFieldsets = filtersContainer.querySelectorAll('fieldset');
-const roomsNumber = formContainer.querySelector('#rooms');
-const guestsNumber = formContainer.querySelector('#capacity');
+const roomsContainer = formContainer.querySelector('#room_number');
+const guestsContainer = formContainer.querySelector('#capacity');
 
-const rooms = Number(roomsNumber(value));
-const guests = Number(guestsNumber(value));
+const CAPACITY = {
+  maxRooms: 100,
+  nonGuests: 0
+};
+
+const maxPrice = 100000;
+const minlength = 30;
+const maxlength = 100;
 
 const pristine = new Pristine(formContainer, {
   classTo: 'ad-form__element',
@@ -18,35 +24,48 @@ const pristine = new Pristine(formContainer, {
 });
 
 function validateTitle (value) {
-  return value.length >= 30 && value.length <= 100;
+  return value.length >= minlength && value.length <= maxlength;
 }
 
 function validatePrice (value) {
-  return value <= 100000;
+  return value <= maxPrice;
 }
 
-function validateRooms (value) {
-  if (value = 1) {
-  return roomsNumber;
+function validateRoomsAndGuests () {
+  const roomsNumber = Number(roomsContainer.value);
+  const guestsNumber = Number(guestsContainer.value);
+
+  if (roomsNumber >= guestsNumber && roomsNumber !== CAPACITY.maxRooms && guestsNumber !== CAPACITY.nonGuests) {
+    return true;
+  }
+  else if (CAPACITY.maxRooms === roomsNumber && CAPACITY.nonGuests === guestsNumber) {
+    return true;
+  } else {
+    return false;
+  }
+}
+function getErrorRoomsAndGuestsMessage () {
+  const roomsNumber = Number(roomsContainer.value);
+  const guestsNumber = Number(guestsContainer.value);
+
+  if (guestsNumber > roomsNumber) {
+    return 'Количество гостей не должно превышать количество комнат';
+  }
+
+  else if (roomsNumber === CAPACITY.maxRooms || guestsNumber === CAPACITY.nonGuests) {
+    return '100 комнат не для гостей';
   }
 }
 
-
-
-
-
 pristine.addValidator(formContainer.querySelector('#title'), validateTitle, 'От 30 до 100 символов');
-pristine.addValidator(formContainer.querySelector('#price'), validatePrice, 'Максимальное значение — 100 000');
-pristine.addValidator(roomsNumber, validateRooms,  'От 30 ');
+pristine.addValidator(formContainer.querySelector('#price'), validatePrice, 'Максимальное значение — 100 000');
+pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
 formContainer.addEventListener('submit', (evt) => {
   const isValide = pristine.validate();
 
-  if(isValide){
-    console.log('Форма валидна!');
-  } else {
+  if (!isValide) {
     evt.preventDefault();
-    console.log('Форма не валидна!');
   }
 });
 
