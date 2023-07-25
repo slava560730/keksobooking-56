@@ -2,7 +2,11 @@ const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
 const filtersContainer = document.querySelector('.map__filters');
 const filtersFieldsets = filtersContainer.querySelectorAll('fieldset');
-const error = document.querySelector('ad-form__error-text');
+const roomsNumber = formContainer.querySelector('#rooms');
+const guestsNumber = formContainer.querySelector('#capacity');
+
+const rooms = Number(roomsNumber(value));
+const guests = Number(guestsNumber(value));
 
 const pristine = new Pristine(formContainer, {
   classTo: 'ad-form__element',
@@ -22,13 +26,18 @@ function validatePrice (value) {
 }
 
 function validateRooms (value) {
-  return value
+  if (value = 1) {
+  return roomsNumber;
+  }
 }
+
+
 
 
 
 pristine.addValidator(formContainer.querySelector('#title'), validateTitle, 'От 30 до 100 символов');
 pristine.addValidator(formContainer.querySelector('#price'), validatePrice, 'Максимальное значение — 100 000');
+pristine.addValidator(roomsNumber, validateRooms,  'От 30 ');
 
 formContainer.addEventListener('submit', (evt) => {
   const isValide = pristine.validate();
