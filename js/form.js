@@ -5,14 +5,26 @@ const filtersFieldsets = filtersContainer.querySelectorAll('fieldset');
 const roomsContainer = formContainer.querySelector('#room_number');
 const guestsContainer = formContainer.querySelector('#capacity');
 
+const TYPES = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000
+};
+
 const CAPACITY = {
   maxRooms: 100,
   nonGuests: 0
 };
 
+const TITILE_LENGTH = {
+  maxlength: 100,
+  minlength: 30
+}
+
+let minPrice = 0;
 const maxPrice = 100000;
-const minlength = 30;
-const maxlength = 100;
 
 const pristine = new Pristine(formContainer, {
   classTo: 'ad-form__element',
@@ -24,10 +36,38 @@ const pristine = new Pristine(formContainer, {
 });
 
 function validateTitle (value) {
-  return value.length >= minlength && value.length <= maxlength;
+  return value.length >= TITILE_LENGTH.minlength && value.length <= TITILE_LENGTH.maxlength;
 }
 
+function getErrorTitle () {
+  const TitleContainer = formContainer.querySelector('#title');
+
+  if (TitleContainer.value.length < TITILE_LENGTH.minlength) {
+    return ' Количество символов должно быть больше 30';
+  } else if (TitleContainer.value.length > TITILE_LENGTH.maxlength) {
+    return ' Количество символов должно быть меньше 100';
+  }
+}
+
+function syncTypesWithMinPrice () {
+  const typeContainer = formContainer.querySelector('#type');
+  const priceContainer = formContainer.querySelector('#price');
+
+  if (typeContainer.value = 'flat') {
+     priceContainer.placeholder = TYPES.flat;
+  } else if (typeContainer.value = 'palace') {
+    priceContainer.placeholder = TYPES.palace;
+  }
+}
+
+syncTypesWithMinPrice();
+
 function validatePrice (value) {
+  if (typeContainer.value = 'bungalow') {
+    minPrice = TYPES.bungalow;
+    priceContainer.placeholder = 0;
+  }
+  minPrice = value;
   return value <= maxPrice;
 }
 
@@ -57,7 +97,7 @@ function getErrorRoomsAndGuestsMessage () {
   }
 }
 
-pristine.addValidator(formContainer.querySelector('#title'), validateTitle, 'От 30 до 100 символов');
+pristine.addValidator(formContainer.querySelector('#title'), validateTitle, getErrorTitle);
 pristine.addValidator(formContainer.querySelector('#price'), validatePrice, 'Максимальное значение — 100 000');
 pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
