@@ -28,8 +28,6 @@ similarAdvertisements.forEach(({offer, author}) => {
   checkValueOfElement(avatarContainer, author.avatar, 'src' );
   photoContainer.querySelector('.popup__photo').remove();
   checkValueOfPhoto(photoContainer, offer.photos);
-  const containerOfAdds = document.querySelector('.map__canvas');
-  containerOfAdds.appendChild(CardElement);
 });
 
 

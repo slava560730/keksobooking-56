@@ -28,7 +28,7 @@ const TITILE_LENGTH = {
   minlength: 30
 };
 
-const maxPrice = 100000;
+const MAX_PRICE = 100000;
 
 const pristine = new Pristine(formContainer, {
   classTo: 'ad-form__element',
@@ -55,50 +55,55 @@ function getErrorTitle () {
 
 // Сопоставление типов жилищ с минимальной ценой и сопоставление времени выезда и заезда
 
-function syncTypesWithMinPrice () {
+function onSyncTypesWithMinPrice () {
   const type = typeContainer.value;
 
   if (type === 'flat') {
     priceContainer.placeholder = TYPES.flat;
   }
+
   if (type === 'palace') {
     priceContainer.placeholder = TYPES.palace;
   }
+
   if (type === 'bungalow') {
     priceContainer.placeholder = TYPES.bungalow;
   }
+
   if (type === 'hotel') {
     priceContainer.placeholder = TYPES.hotel;
   }
+
   if (type === 'house') {
     priceContainer.placeholder = TYPES.house;
   }
+
 }
 
-function syncTimesOut () {
+function onSyncTimesOut () {
   timeIn.value = timeOut.value;
 }
 
-function syncTimesIn () {
+function onSyncTimesIn () {
   timeOut.value = timeIn.value;
 }
 
-timeOut.addEventListener('change', syncTimesOut);
-timeIn.addEventListener('change',syncTimesIn);
-typeContainer.addEventListener('change', syncTypesWithMinPrice);
+timeOut.addEventListener('change', onSyncTimesOut);
+timeIn.addEventListener('change',onSyncTimesIn);
+typeContainer.addEventListener('change', onSyncTypesWithMinPrice);
 
 // Валидация цены
 
 function validatePrice () {
-  return Number(priceContainer.value) >= TYPES[typeContainer.value] && Number(priceContainer.value) <= maxPrice;
+  return Number(priceContainer.value) >= TYPES[typeContainer.value] && Number(priceContainer.value) <= MAX_PRICE;
 }
 
 function getErrorPriceMessage () {
   if (Number(priceContainer.value) < TYPES[typeContainer.value]) {
     return `цена должна быть больше ${  TYPES[typeContainer.value]}`;
   }
-  if (Number(priceContainer.value) > maxPrice) {
-    return `цена должна быть меньше ${  maxPrice}`;
+  if (Number(priceContainer.value) > MAX_PRICE) {
+    return `цена должна быть меньше ${  MAX_PRICE}`;
   }
 }
 
@@ -130,12 +135,12 @@ function getErrorRoomsAndGuestsMessage () {
   }
 }
 
-function changeCapacity () {
+function onChangeCapacity () {
   return pristine.validate(guestsContainer);
 }
 
-guestsContainer.addEventListener('change', changeCapacity);
-roomsContainer.addEventListener('change', changeCapacity);
+guestsContainer.addEventListener('change', onChangeCapacity);
+roomsContainer.addEventListener('change', onChangeCapacity);
 
 pristine.addValidator(TitleContainer, validateTitle, getErrorTitle);
 pristine.addValidator(priceContainer, validatePrice, getErrorPriceMessage);
@@ -166,3 +171,4 @@ function enableForm() {
 
 export {disableForm};
 export {enableForm};
+export {formContainer};

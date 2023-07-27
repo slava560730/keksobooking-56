@@ -68,7 +68,7 @@ const MIN_LOCATION_LNG = 139.70000;
 const MAX_LOCATION_LNG = 139.80000;
 const LOCATION_LNG_DECIMALS = 5;
 
-const ADVERTISEMENTS = 1;
+const ADVERTISEMENTS = 5;
 
 function createImgNumber () {
   const randomIndex = getRandomNumber(0, numbers.length - 1);
