@@ -1,12 +1,25 @@
-import {similarAdvertisements, syncTypesToRussian,createAdvertisements} from './data.js';
+import {syncTypesToRussian} from './data.js';
 import {checkValueOfPhoto, checkValueOfElement, inclineTermonOfRooms, inclineTermonOfGuests} from './util.js';
 
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
 
-const createPopup = () => {
-  const offer = similarAdvertisements.offer;
-  const author = similarAdvertisements.author;
+const createPopup = ({offer, author}) => {
+  const { avatar } = author;
+  const {
+    title,
+    address,
+    price,
+    type,
+    rooms,
+    guests,
+    checkin,
+    checkout,
+    features,
+    description,
+    photos,
+  } = offer;
+
   const CardElement = CardTemplate.cloneNode(true);
   const photoContainer = CardElement.querySelector('.popup__photos');
   const titleContainer = CardElement.querySelector('.popup__title');

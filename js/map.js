@@ -15,6 +15,8 @@ const DECIMALS = 5;
 
 addressContainer.value =`${CENTER_TOKYO.lat  } ${  CENTER_TOKYO.lng.toString()}`;
 
+// Добавляем карту, при загрузке карты активируем форму
+
 const map = L.map('map-canvas')
   .on('load', () => {
     enableForm();
@@ -29,6 +31,8 @@ L.tileLayer(
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   },
 ).addTo(map);
+
+// Добавляем иконки и метку
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -63,10 +67,13 @@ resetButton.addEventListener('click', () => {
   map.setView(CENTER_TOKYO, ZOOM);
 });
 
-const offer = similarAdvertisements.offer;
-console.log(offer);
+// Добавляем новый слой
 
-similarAdvertisements.forEach(({location, offer}) => {
+const markerGroup = L.layerGroup().addTo(map);
+
+// Код для создания метки
+
+const createMarker = ({location, offer, author}) => {
   const marker = L.marker(
     location,
     {
@@ -75,6 +82,14 @@ similarAdvertisements.forEach(({location, offer}) => {
   );
 
   marker
-    .addTo(map)
-    .bindPopup(createPopup);
+    .addTo(markerGroup)
+    .bindPopup(createPopup({offer, author}));
+};
+
+similarAdvertisements.forEach(({location, offer, author}) => {
+  createMarker({location, offer, author})
 });
+
+// Код для удаления слоя
+
+markerGroup.clearLayers();
