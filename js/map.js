@@ -10,8 +10,12 @@ const CENTER_TOKYO = {
   lng: 139.69171,
 };
 const ZOOM = 10;
-
 const DECIMALS = 5;
+
+const SIZE_MAIN_PIN_ICON = [52, 52];
+const SIZE_SIMPLE_PIN_ICON = [40, 40];
+const ANCHOR_MAIN_PIN_ICON = [26, 52];
+const ANCHOR_SIMPLE_PIN_ICON = [20, 40];
 
 addressContainer.value =`${CENTER_TOKYO.lat  } ${  CENTER_TOKYO.lng.toString()}`;
 
@@ -36,14 +40,14 @@ L.tileLayer(
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: SIZE_MAIN_PIN_ICON,
+  iconAnchor: ANCHOR_MAIN_PIN_ICON,
 });
 
 const simplePinIcon = L.icon({
   iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconSize: SIZE_SIMPLE_PIN_ICON,
+  iconAnchor: ANCHOR_SIMPLE_PIN_ICON,
 });
 
 const mainPinMarker = L.marker(
@@ -87,9 +91,9 @@ const createMarker = ({location, offer, author}) => {
 };
 
 similarAdvertisements.forEach(({location, offer, author}) => {
-  createMarker({location, offer, author})
+  createMarker({location, offer, author});
 });
 
 // Код для удаления слоя
 
-markerGroup.clearLayers();
+// markerGroup.clearLayers();

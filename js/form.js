@@ -171,4 +171,4 @@ function enableForm() {
 
 export {disableForm};
 export {enableForm};
-export {formContainer};
+export {formContainer, typeContainer, TYPES};

@@ -32,17 +32,17 @@ const createPopup = ({offer, author}) => {
   const descriptionContainer =  CardElement.querySelector('.popup__description');
   const avatarContainer =  CardElement.querySelector('.popup__avatar');
 
-  checkValueOfElement(titleContainer, offer.title);
-  checkValueOfElement(adressContainer, offer.address);
-  checkValueOfElement(priceContainer, `${offer.price  } ₽/ночь`);
-  checkValueOfElement(typeContainer, syncTypesToRussian(offer.type));
-  checkValueOfElement(capacityContainer, `${offer.rooms + inclineTermonOfRooms(offer.rooms)  }  для ${  offer.guests + inclineTermonOfGuests(offer.guests)}`);
-  checkValueOfElement(timeContainer, `Заезд послe ${  offer.checkin}, выезд до ${  offer.checkout}`);
-  checkValueOfElement(featuresContainer, offer.features);
-  checkValueOfElement(descriptionContainer, offer.description);
-  checkValueOfElement(avatarContainer, author.avatar, 'src' );
+  checkValueOfElement(titleContainer, title);
+  checkValueOfElement(adressContainer, address);
+  checkValueOfElement(priceContainer, `${price  } ₽/ночь`);
+  checkValueOfElement(typeContainer, syncTypesToRussian(type));
+  checkValueOfElement(capacityContainer, `${rooms + inclineTermonOfRooms(rooms)  }  для ${  guests + inclineTermonOfGuests(guests)}`);
+  checkValueOfElement(timeContainer, `Заезд послe ${  checkin}, выезд до ${  checkout}`);
+  checkValueOfElement(featuresContainer, features);
+  checkValueOfElement(descriptionContainer, description);
+  checkValueOfElement(avatarContainer, avatar, 'src' );
   photoContainer.querySelector('.popup__photo').remove();
-  checkValueOfPhoto(photoContainer, offer.photos);
+  checkValueOfPhoto(photoContainer, photos);
 
   return CardElement;
 };
