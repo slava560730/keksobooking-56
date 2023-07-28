@@ -99,7 +99,7 @@ function syncTypesToRussian(element) {
   }
 }
 
-const  createAdvertisements= () => {
+const  createAdvertisements = () => {
   const author = {
     avatar: `img/avatars/user${createImgNumber()}.png`
   };
@@ -131,4 +131,5 @@ const similarAdvertisements = Array.from({length: ADVERTISEMENTS}, createAdverti
 
 export {similarAdvertisements};
 export {syncTypesToRussian};
+export {createAdvertisements};
 

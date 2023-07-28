@@ -1,13 +1,14 @@
 import {enableForm, formContainer} from './form.js';
 import {similarAdvertisements} from './data.js';
+import {createPopup} from './generateCard.js';
 
-let addressContainer = formContainer.querySelector('#address');
+const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
 
 const CENTER_TOKYO = {
   lat: 35.6895,
   lng: 139.69171,
-}
+};
 const ZOOM = 10;
 
 const DECIMALS = 5;
@@ -20,14 +21,14 @@ const map = L.map('map-canvas')
   })
   .setView(
     CENTER_TOKYO
-  , ZOOM);
+    , ZOOM);
 
 L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-    {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-    },
-  ).addTo(map);
+  'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  },
+).addTo(map);
 
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
@@ -52,7 +53,7 @@ const mainPinMarker = L.marker(
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
-  let currentLocation = evt.target.getLatLng();
+  const currentLocation = evt.target.getLatLng();
   addressContainer.value =`${currentLocation.lat.toFixed(DECIMALS)  } ${  currentLocation.lng.toFixed(DECIMALS).toString()}`;
 });
 
@@ -62,15 +63,18 @@ resetButton.addEventListener('click', () => {
   map.setView(CENTER_TOKYO, ZOOM);
 });
 
+const offer = similarAdvertisements.offer;
+console.log(offer);
+
 similarAdvertisements.forEach(({location, offer}) => {
   const marker = L.marker(
     location,
-  {
-    icon: simplePinIcon,
-  },
+    {
+      icon: simplePinIcon,
+    },
   );
 
   marker
-  .addTo(map)
-  .bindPopup(offer.title);
+    .addTo(map)
+    .bindPopup(createPopup);
 });
