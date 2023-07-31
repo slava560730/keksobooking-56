@@ -1,5 +1,4 @@
 import {enableForm, formContainer} from './form.js';
-import {similarAdvertisements} from './data.js';
 import {createPopup} from './generateCard.js';
 
 const addressContainer = formContainer.querySelector('#address');
@@ -16,8 +15,6 @@ const SIZE_MAIN_PIN_ICON = [52, 52];
 const SIZE_SIMPLE_PIN_ICON = [40, 40];
 const ANCHOR_MAIN_PIN_ICON = [26, 52];
 const ANCHOR_SIMPLE_PIN_ICON = [20, 40];
-
-addressContainer.value =`${CENTER_TOKYO.lat  } ${  CENTER_TOKYO.lng.toString()}`;
 
 // Добавляем карту, при загрузке карты активируем форму
 
@@ -90,10 +87,8 @@ const createMarker = ({location, offer, author}) => {
     .bindPopup(createPopup({offer, author}));
 };
 
-similarAdvertisements.forEach(({location, offer, author}) => {
-  createMarker({location, offer, author});
-});
-
 // Код для удаления слоя
 
 // markerGroup.clearLayers();
+
+export {createMarker};

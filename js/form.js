@@ -169,6 +169,7 @@ function enableForm() {
   filtersFieldsets.disabled = false;
 }
 
-export {disableForm};
+disableForm();
+
 export {enableForm};
 export {formContainer, typeContainer, TYPES};
