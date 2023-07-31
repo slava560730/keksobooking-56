@@ -51,14 +51,14 @@ const MIN_IMG_NUMBER = 1;
 const MAX_IMG_NUMBER = 10;
 const numbers = [];
 
-const MIN_PRICE = 1000;
-const MAX_PRICE = 10000;
+const MIN_PRICE = 0;
+const MAX_PRICE = 100000;
 
 const MIN_ROOMS = 1;
-const MAX_ROOMS = 5;
+const MAX_ROOMS = 3;
 
 const MIN_GUESTS = 1;
-const MAX_GUESTS = 4;
+const MAX_GUESTS = 3;
 
 const MIN_LOCATION_LAT = 35.65000;
 const MAX_LOCATION_LAT = 35.70000;
@@ -68,7 +68,7 @@ const MIN_LOCATION_LNG = 139.70000;
 const MAX_LOCATION_LNG = 139.80000;
 const LOCATION_LNG_DECIMALS = 5;
 
-const ADVERTISEMENTS = 1;
+const ADVERTISEMENTS = 10;
 
 function createImgNumber () {
   const randomIndex = getRandomNumber(0, numbers.length - 1);
@@ -99,7 +99,7 @@ function syncTypesToRussian(element) {
   }
 }
 
-const  createAdvertisements= () => {
+const  createAdvertisements = () => {
   const author = {
     avatar: `img/avatars/user${createImgNumber()}.png`
   };
@@ -131,4 +131,5 @@ const similarAdvertisements = Array.from({length: ADVERTISEMENTS}, createAdverti
 
 export {similarAdvertisements};
 export {syncTypesToRussian};
+export {createAdvertisements};
 

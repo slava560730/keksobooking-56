@@ -1,10 +1,25 @@
-import {similarAdvertisements, syncTypesToRussian} from './data.js';
+import {syncTypesToRussian} from './data.js';
 import {checkValueOfPhoto, checkValueOfElement, inclineTermonOfRooms, inclineTermonOfGuests} from './util.js';
 
 const addCardTemplate = document.querySelector('#card').content;
 const CardTemplate = addCardTemplate.querySelector('.popup');
 
-similarAdvertisements.forEach(({offer, author}) => {
+const createPopup = ({offer, author}) => {
+  const { avatar } = author;
+  const {
+    title,
+    address,
+    price,
+    type,
+    rooms,
+    guests,
+    checkin,
+    checkout,
+    features,
+    description,
+    photos,
+  } = offer;
+
   const CardElement = CardTemplate.cloneNode(true);
   const photoContainer = CardElement.querySelector('.popup__photos');
   const titleContainer = CardElement.querySelector('.popup__title');
@@ -17,19 +32,20 @@ similarAdvertisements.forEach(({offer, author}) => {
   const descriptionContainer =  CardElement.querySelector('.popup__description');
   const avatarContainer =  CardElement.querySelector('.popup__avatar');
 
-  checkValueOfElement(titleContainer, offer.title);
-  checkValueOfElement(adressContainer, offer.address);
-  checkValueOfElement(priceContainer, `${offer.price  } ₽/ночь`);
-  checkValueOfElement(typeContainer, syncTypesToRussian(offer.type));
-  checkValueOfElement(capacityContainer, `${offer.rooms + inclineTermonOfRooms(offer.rooms)  }  для ${  offer.guests + inclineTermonOfGuests(offer.guests)}`);
-  checkValueOfElement(timeContainer, `Заезд послe ${  offer.checkin}, выезд до ${  offer.checkout}`);
-  checkValueOfElement(featuresContainer, offer.features);
-  checkValueOfElement(descriptionContainer, offer.description);
-  checkValueOfElement(avatarContainer, author.avatar, 'src' );
+  checkValueOfElement(titleContainer, title);
+  checkValueOfElement(adressContainer, address);
+  checkValueOfElement(priceContainer, `${price  } ₽/ночь`);
+  checkValueOfElement(typeContainer, syncTypesToRussian(type));
+  checkValueOfElement(capacityContainer, `${rooms + inclineTermonOfRooms(rooms)  }  для ${  guests + inclineTermonOfGuests(guests)}`);
+  checkValueOfElement(timeContainer, `Заезд послe ${  checkin}, выезд до ${  checkout}`);
+  checkValueOfElement(featuresContainer, features);
+  checkValueOfElement(descriptionContainer, description);
+  checkValueOfElement(avatarContainer, avatar, 'src' );
   photoContainer.querySelector('.popup__photo').remove();
-  checkValueOfPhoto(photoContainer, offer.photos);
-  const containerOfAdds = document.querySelector('.map__canvas');
-  containerOfAdds.appendChild(CardElement);
-});
+  checkValueOfPhoto(photoContainer, photos);
+
+  return CardElement;
+};
 
 
+export {createPopup};
