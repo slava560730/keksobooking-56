@@ -10,6 +10,11 @@ const timeIn = formContainer.querySelector('#timein');
 const timeOut = formContainer.querySelector('#timeout');
 const TitleContainer = formContainer.querySelector('#title');
 
+const successContainer = document.querySelector('.success');
+const successText = successContainer.querySelector('.success__message');
+const errorContainer = document.querySelector('.error');
+const errorText = errorContainer.querySelector('.error__message');
+
 const TYPES = {
   bungalow: 0,
   flat: 1000,
@@ -146,10 +151,34 @@ pristine.addValidator(TitleContainer, validateTitle, getErrorTitle);
 pristine.addValidator(priceContainer, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
-formContainer.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const setUserFormSubmit = () => {
+  formContainer.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      const formData = new FormData(evt.target);
+
+      fetch(
+        'https://26.javascript.pages.academy/keksobooking',
+        {
+          method: 'POST',
+          body: formData,
+        },
+      )
+        .then(response)
+    =>
+      {
+        if (response.ok) {
+          successContainer.textContent = successText;
+        }
+        else {
+
+        }
+      }
+    }
+  });
+}
 
 // Функция для перехода формы в неактивное состояние
 
