@@ -1,3 +1,6 @@
+import { createSuccessMessege } from "./messeges.js";
+// import { sendData } from "./api.js";
+
 const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
 const filtersContainer = document.querySelector('.map__filters');
@@ -9,11 +12,6 @@ const priceContainer = formContainer.querySelector('#price');
 const timeIn = formContainer.querySelector('#timein');
 const timeOut = formContainer.querySelector('#timeout');
 const TitleContainer = formContainer.querySelector('#title');
-
-const successContainer = document.querySelector('.success');
-const successText = successContainer.querySelector('.success__message');
-const errorContainer = document.querySelector('.error');
-const errorText = errorContainer.querySelector('.error__message');
 
 const TYPES = {
   bungalow: 0,
@@ -151,34 +149,64 @@ pristine.addValidator(TitleContainer, validateTitle, getErrorTitle);
 pristine.addValidator(priceContainer, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
-const setUserFormSubmit = () => {
+// const setUserFormSubmit = (evt) => {
+//   evt.preventDefault();
+
+//   const isValid = pristine.validate();
+//   if (isValid) {
+//     stateSubmitButton(true);
+//     sendData(
+//       () => {
+//         onSuccess();
+//       },
+//       () => {
+//         onError();
+//       },
+//     );
+//   }
+// };
+// setUserFormSubmit();
+
+// export const setUserFormSubmit = (onSuccess) => {
   formContainer.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
-    const isValid = pristine.validate();
-    if (isValid) {
-      const formData = new FormData(evt.target);
+  const isValid = pristine.validate();
+  if (isValid) {
+    const formData = new FormData(evt.target);
 
-      fetch(
-        'https://26.javascript.pages.academy/keksobooking',
-        {
-          method: 'POST',
-          body: formData,
-        },
-      )
-        .then(response)
-    =>
-      {
+    fetch( 'https://26.javascript.pages.academy/keksobooking',
+     {
+      method: 'POST',
+      body: formData,
+    },
+    )
+      .then(() => {
         if (response.ok) {
-          successContainer.textContent = successText;
+          // onSuccess();
+          console.log('Форма валидна');
+        } else {
+          console.log('Форма не валидна');
         }
-        else {
-
-        }
-      }
+      })
+      .catch(() => {
+        console.log('Попробуйте ещё раз');
+      });
     }
   });
-}
+
+
+// formContainer.addEventListener('submit', (evt) => {
+//   evt.preventDefault();
+
+//   const isValid = pristine.validate();
+//   if (isValid) {
+//     console.log('Можно отправлять');
+//     createSuccessMessege();
+//   } else {
+//     console.log('Форма невалидна');
+//   }
+// });
 
 // Функция для перехода формы в неактивное состояние
 

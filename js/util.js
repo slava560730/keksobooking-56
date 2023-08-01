@@ -99,10 +99,6 @@ function syncTypesToRussian(element) {
   }
 }
 
-// const showAlert = (element, value) => {
-//   fillInnElement (element, value, property);
-// }
-
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 export {getRandomNumber};
