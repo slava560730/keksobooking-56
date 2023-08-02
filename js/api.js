@@ -1,6 +1,9 @@
 import './generateCard.js';
 import {createMarker} from './map.js';
 import {clearSuccessMessege, createSuccessMessege, showDownloadErrorMessege} from './messeges.js';
+import { formContainer } from './form.js';
+import { resetMarker } from './map.js';
+import { resetSlider } from './slider.js';
 
 // Получаем данные от сервера
 
@@ -25,4 +28,12 @@ const onSuccess = () => {
   clearSuccessMessege();
 };
 
-export {onSuccess};
+// Возвращаем форму в исходное состояние при успешной отправке
+
+const resetForm = () => {
+  formContainer.reset();
+  resetMarker();
+  resetSlider();
+}
+
+export {onSuccess, resetForm};

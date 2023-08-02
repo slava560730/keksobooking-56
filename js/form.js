@@ -1,5 +1,5 @@
 
-import { onSuccess } from './api.js';
+import { onSuccess, resetForm } from './api.js';
 
 const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
@@ -166,6 +166,7 @@ formContainer.addEventListener('submit', (evt) => {
       .then((response) => {
         if (response.ok) {
           onSuccess();
+          resetForm();
           console.log('Форма валидна');
         } else {
           console.log('Форма не валидна');
@@ -176,19 +177,6 @@ formContainer.addEventListener('submit', (evt) => {
       });
   }
 });
-
-
-// formContainer.addEventListener('submit', (evt) => {
-//   evt.preventDefault();
-
-//   const isValid = pristine.validate();
-//   if (isValid) {
-//     console.log('Можно отправлять');
-//     createSuccessMessege();
-//   } else {
-//     console.log('Форма невалидна');
-//   }
-// });
 
 // Функция для перехода формы в неактивное состояние
 

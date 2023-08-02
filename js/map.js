@@ -62,10 +62,15 @@ mainPinMarker.on('moveend', (evt) => {
   addressContainer.value =`${currentLocation.lat.toFixed(DECIMALS)  } ${  currentLocation.lng.toFixed(DECIMALS).toString()}`;
 });
 
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng(CENTER_TOKYO);
+// Возврат маркера в исходное состояние
 
-  map.setView(CENTER_TOKYO, ZOOM);
+const resetMarker = () => {
+  mainPinMarker.setLatLng(CENTER_TOKYO);
+  map.setView(CENTER_TOKYO, ZOOM).closePopup();
+}
+
+resetButton.addEventListener('click', () => {
+  resetMarker();
 });
 
 // Добавляем новый слой
@@ -91,4 +96,4 @@ const createMarker = ({location, offer, author}) => {
 
 // markerGroup.clearLayers();
 
-export {createMarker};
+export {createMarker, resetMarker};
