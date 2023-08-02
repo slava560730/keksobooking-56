@@ -1,5 +1,4 @@
-
-import {onError, onSuccess} from './api.js';
+import {sendData} from './api.js';
 
 const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
@@ -149,33 +148,19 @@ pristine.addValidator(TitleContainer, validateTitle, getErrorTitle);
 pristine.addValidator(priceContainer, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
-// export const setUserFormSubmit = (onSuccess) => {
-formContainer.addEventListener('submit', (evt) => {
-  evt.preventDefault();
+const setUserFormSubmit = () => {
+  formContainer.addEventListener('submit', (evt) => {
+    evt.preventDefault();
 
-  const isValid = pristine.validate();
-  if (isValid) {
-    const formData = new FormData(evt.target);
-
-    fetch( 'https://26.javascript.pages.academy/keksobooking/',
-      {
-        method: 'POST',
-        body: formData,
-      },
-    )
-      .then((response) => {
-        if (response.ok) {
-          onSuccess();
-          resetForm();
-        } else {
-          onError();
-        }
-      })
-      .catch(() => {
-        console.log('Попробуйте ещё раз');
-      });
-  }
-});
+    const isValid = pristine.validate();
+    if (isValid) {
+      if (isValid) {
+        sendData(new FormData(evt.target)
+        );
+      }
+    }
+  });
+};
 
 // Функция для перехода формы в неактивное состояние
 
@@ -197,5 +182,5 @@ function enableForm() {
 
 disableForm();
 
-export {enableForm};
+export {enableForm, setUserFormSubmit};
 export {formContainer, typeContainer, TYPES};

@@ -83,7 +83,7 @@ typeContainer.addEventListener('change', () => {
 
 const resetSlider = () => {
   priceSlider.noUiSlider.set(PRICE.min);
-}
+};
 
 // Код для отключения отображения слайдера
 

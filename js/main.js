@@ -1,8 +1,8 @@
-// import {setUserFormSubmit} from './form.js';
-// import { createSuccessMessege } from './messeges.js';
 import './map.js';
 import './slider.js';
-import './api.js';
 import './form.js';
+import {getData} from './api.js';
+import {setUserFormSubmit} from './form.js';
 
-// setUserFormSubmit(createSuccessMessege);
+getData();
+setUserFormSubmit();

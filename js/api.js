@@ -1,29 +1,39 @@
-import './generateCard.js';
-import {createMarker} from './map.js';
+import {createMarker, resetMarker} from './map.js';
 import {createErrorMessege, clearErrorMessege, clearSuccessMessege, createSuccessMessege, showErrorMessege} from './messeges.js';
-import { formContainer } from './form.js';
-import { resetMarker } from './map.js';
-import { resetSlider } from './slider.js';
+import {formContainer} from './form.js';
+import {resetSlider} from './slider.js';
+
+// Показываем сообщения при получении данных от сервера
+
+const onSuccessGetData = (advertisements) => {
+  advertisements.forEach(({location, offer, author}) => {
+    createMarker({location, offer, author});
+  });
+};
+
+const onErrorGetData = () => {
+  showErrorMessege('Не удалось загрузить данные с сервера');
+};
 
 // Получаем данные от сервера
 
-fetch('https://26.javascript.pages.academy/keksobooking/data')
-  .then((response) => {
-    if (response.ok) {
-      response.json()
-        .then((advertisements) => {
-          advertisements.forEach(({location, offer, author}) => {
-            createMarker({location, offer, author});
+const getData = () => {
+  fetch('https://26.javascript.pages.academy/keksobooking/data')
+    .then((response) => {
+      if (response.ok) {
+        response.json()
+          .then((advertisements) => {
+            onSuccessGetData(advertisements);
           });
-        });
-    } else {
-      showErrorMessege('Не удалось загрузить данные с сервера');
-    }
-  });
+      } else {
+        onErrorGetData();
+      }
+    });
+};
 
-// Показываем ошибку при отправке данные на сервер
+// Показываем ошибку при отправке данных на сервер
 
-const onError = () => {
+const onErrorSendData = () => {
   createErrorMessege();
   clearErrorMessege();
 };
@@ -34,14 +44,34 @@ const resetForm = () => {
   formContainer.reset();
   resetMarker();
   resetSlider();
-}
+};
 
 // Отправляем данные на сервер и очищаем форму
 
-const onSuccess = () => {
+const onSuccessSendData = () => {
   createSuccessMessege();
-  clearSuccessMessege()
+  clearSuccessMessege();
   resetForm();
 };
 
-export {onSuccess, onError};
+const sendData = (body) => {
+
+  fetch( 'https://26.javascript.pages.academy/keksobooking/',
+    {
+      method: 'POST',
+      body,
+    },
+  )
+    .then((response) => {
+      if (response.ok) {
+        onSuccessSendData();
+      } else {
+        onErrorSendData();
+      }
+    })
+    .catch(() => {
+      onErrorSendData();
+    });
+};
+
+export {getData, sendData};

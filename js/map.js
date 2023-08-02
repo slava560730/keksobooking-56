@@ -1,6 +1,6 @@
 import {enableForm, formContainer} from './form.js';
 import {createPopup} from './generateCard.js';
-import { resetSlider } from './slider.js';
+import {resetSlider} from './slider.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -68,7 +68,7 @@ mainPinMarker.on('moveend', (evt) => {
 const resetMarker = () => {
   mainPinMarker.setLatLng(CENTER_TOKYO);
   map.setView(CENTER_TOKYO, ZOOM).closePopup();
-}
+};
 
 resetButton.addEventListener('click', () => {
   resetMarker();
