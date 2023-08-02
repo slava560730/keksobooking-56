@@ -1,8 +1,8 @@
 const pageBodyContainer = document.querySelector('body');
 const successTemplate = document.querySelector('#success');
 const successTemplateMessege = successTemplate.content.querySelector('.success');
-const errorContainer = document.querySelector('#error');
-const errorText = errorContainer.querySelector('.error__message');
+const errorTemplate = document.querySelector('#error');
+const errorTemplateMessege = errorTemplate.content.querySelector('.error');
 
 const ALERT_SHOW_TIME = 10000;
 
@@ -53,4 +53,26 @@ const showDownloadErrorMessege = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {createSuccessMessege, clearSuccessMessege, showDownloadErrorMessege};
+// Создаем сообщение об ошибке при загрузке формы
+
+const createErrorMessege = () => {
+  const errorMessege = errorTemplateMessege.cloneNode(true);
+
+  pageBodyContainer.append(errorMessege);
+};
+
+const clearErrorMessege = ()  => {
+  const errorMessegeContainer = document.querySelector('.error');
+  if (pageBodyContainer.contains(errorMessegeContainer)) {
+    document.addEventListener('click', () => {
+      errorMessegeContainer.remove();
+    });
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        errorMessegeContainer.remove();
+      }
+    });
+  }
+};
+
+export {createErrorMessege, clearErrorMessege, createSuccessMessege, clearSuccessMessege, showErrorMessege};

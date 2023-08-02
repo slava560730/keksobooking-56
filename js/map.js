@@ -1,5 +1,6 @@
 import {enableForm, formContainer} from './form.js';
 import {createPopup} from './generateCard.js';
+import { resetSlider } from './slider.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -71,6 +72,7 @@ const resetMarker = () => {
 
 resetButton.addEventListener('click', () => {
   resetMarker();
+  resetSlider();
 });
 
 // Добавляем новый слой

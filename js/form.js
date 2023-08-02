@@ -1,5 +1,5 @@
 
-import { onSuccess, resetForm } from './api.js';
+import {onError, onSuccess} from './api.js';
 
 const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
@@ -157,7 +157,7 @@ formContainer.addEventListener('submit', (evt) => {
   if (isValid) {
     const formData = new FormData(evt.target);
 
-    fetch( 'https://26.javascript.pages.academy/keksobooking',
+    fetch( 'https://26.javascript.pages.academy/keksobooking/',
       {
         method: 'POST',
         body: formData,
@@ -167,9 +167,8 @@ formContainer.addEventListener('submit', (evt) => {
         if (response.ok) {
           onSuccess();
           resetForm();
-          console.log('Форма валидна');
         } else {
-          console.log('Форма не валидна');
+          onError();
         }
       })
       .catch(() => {
