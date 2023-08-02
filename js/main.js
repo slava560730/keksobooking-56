@@ -3,5 +3,6 @@
 import './map.js';
 import './slider.js';
 import './api.js';
+import './form.js';
 
 // setUserFormSubmit(createSuccessMessege);

@@ -4,10 +4,53 @@ const successTemplateMessege = successTemplate.content.querySelector('.success')
 const errorContainer = document.querySelector('#error');
 const errorText = errorContainer.querySelector('.error__message');
 
+const ALERT_SHOW_TIME = 10000;
+
+// Создаем сообщение об успешной загрузке формы
+
 const createSuccessMessege = () => {
   const successMessege = successTemplateMessege.cloneNode(true);
 
   pageBodyContainer.append(successMessege);
-}
+};
 
-export {createSuccessMessege};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const clearSuccessMessege = ()  => {
+  const successMessegeContainer = document.querySelector('.success');
+  if (pageBodyContainer.contains(successMessegeContainer)) {
+    document.addEventListener('click', () => {
+      successMessegeContainer.remove();
+    });
+    document.addEventListener('keydown', (evt) => {
+      if (isEscapeKey(evt)) {
+        successMessegeContainer.remove();
+      }
+    });
+  }
+};
+
+// Создаем сообщение об ошибке при загрузке данных
+
+const showDownloadErrorMessege = (message) => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = '100';
+  alertContainer.style.position = 'absolute';
+  alertContainer.style.left = '0';
+  alertContainer.style.top = '0';
+  alertContainer.style.right = '0';
+  alertContainer.style.padding = '5px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = 'red';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+export {createSuccessMessege, clearSuccessMessege, showDownloadErrorMessege};
