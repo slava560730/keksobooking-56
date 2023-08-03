@@ -1,6 +1,7 @@
 import {enableForm, formContainer} from './form.js';
 import {createPopup} from './generateCard.js';
 import {resetSlider} from './slider.js';
+import {checkAdvert, setFilter} from './mapFilter.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -92,6 +93,16 @@ const createMarker = ({location, offer, author}) => {
   marker
     .addTo(markerGroup)
     .bindPopup(createPopup({offer, author}));
+};
+
+const createMarkersForAdverts = (advertsData) => {
+  markerGroup.clearLayers();
+
+  advertsData
+    .slice()
+    .filter((advert) => checkAdvert(advert))
+    .slice(0, MAX_ADVERTS)
+    .forEach((advert) => createAdvertPinMarker(advert));
 };
 
 // Код для удаления слоя

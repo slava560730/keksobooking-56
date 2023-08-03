@@ -3,6 +3,8 @@ import {createErrorMessege, clearErrorMessege, clearSuccessMessege, createSucces
 import {formContainer} from './form.js';
 import {resetSlider} from './slider.js';
 
+const MAX_ADVERTISEMENT = 10;
+
 // Показываем сообщения при получении данных от сервера
 
 const onSuccessGetData = (advertisements) => {
@@ -23,7 +25,7 @@ const getData = () => {
       if (response.ok) {
         response.json()
           .then((advertisements) => {
-            onSuccessGetData(advertisements);
+            onSuccessGetData(advertisements.slice(0, MAX_ADVERTISEMENT));
           });
       } else {
         onErrorGetData();
