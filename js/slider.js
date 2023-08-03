@@ -1,5 +1,5 @@
-import {typeContainer, TYPES} from './form.js';
-
+const formContainer = document.querySelector('.ad-form');
+const typeContainer = formContainer.querySelector('#type');
 const priceSlider = document.querySelector('.ad-form__slider');
 const priceValue = document.querySelector('#price');
 
@@ -8,6 +8,14 @@ const PRICE = {
   max: 100000
 };
 const  PRICE_STEP = 1;
+
+const TYPES = {
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000
+};
 
 priceValue.value = TYPES.flat;
 
@@ -71,6 +79,12 @@ typeContainer.addEventListener('change', () => {
   }
 });
 
+// Возврат слайдера в исходное состояние
+
+const resetSlider = () => {
+  priceSlider.noUiSlider.set(PRICE.min);
+};
+
 // Код для отключения отображения слайдера
 
 // priceSlider.setAttribute('disabled', true);
@@ -79,3 +93,4 @@ typeContainer.addEventListener('change', () => {
 
 priceSlider.removeAttribute('disabled');
 
+export {resetSlider};

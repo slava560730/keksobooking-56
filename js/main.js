@@ -1,3 +1,8 @@
-import {disableForm} from './form.js';
+import './map.js';
+import './slider.js';
+import './form.js';
+import {getData} from './api.js';
+import {setUserFormSubmit} from './form.js';
 
-disableForm();
+getData();
+setUserFormSubmit();

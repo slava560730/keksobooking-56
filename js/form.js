@@ -1,3 +1,5 @@
+import {sendData} from './api.js';
+
 const formContainer = document.querySelector('.ad-form');
 const formFieldsets = formContainer.querySelectorAll('fieldset');
 const filtersContainer = document.querySelector('.map__filters');
@@ -146,10 +148,19 @@ pristine.addValidator(TitleContainer, validateTitle, getErrorTitle);
 pristine.addValidator(priceContainer, validatePrice, getErrorPriceMessage);
 pristine.addValidator(guestsContainer, validateRoomsAndGuests,  getErrorRoomsAndGuestsMessage);
 
-formContainer.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  pristine.validate();
-});
+const setUserFormSubmit = () => {
+  formContainer.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      if (isValid) {
+        sendData(new FormData(evt.target)
+        );
+      }
+    }
+  });
+};
 
 // Функция для перехода формы в неактивное состояние
 
@@ -169,6 +180,7 @@ function enableForm() {
   filtersFieldsets.disabled = false;
 }
 
-export {disableForm};
-export {enableForm};
+disableForm();
+
+export {enableForm, setUserFormSubmit};
 export {formContainer, typeContainer, TYPES};

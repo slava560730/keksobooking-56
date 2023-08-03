@@ -1,6 +1,6 @@
 import {enableForm, formContainer} from './form.js';
-import {similarAdvertisements} from './data.js';
 import {createPopup} from './generateCard.js';
+import {resetSlider} from './slider.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -16,8 +16,6 @@ const SIZE_MAIN_PIN_ICON = [52, 52];
 const SIZE_SIMPLE_PIN_ICON = [40, 40];
 const ANCHOR_MAIN_PIN_ICON = [26, 52];
 const ANCHOR_SIMPLE_PIN_ICON = [20, 40];
-
-addressContainer.value =`${CENTER_TOKYO.lat  } ${  CENTER_TOKYO.lng.toString()}`;
 
 // Добавляем карту, при загрузке карты активируем форму
 
@@ -65,10 +63,16 @@ mainPinMarker.on('moveend', (evt) => {
   addressContainer.value =`${currentLocation.lat.toFixed(DECIMALS)  } ${  currentLocation.lng.toFixed(DECIMALS).toString()}`;
 });
 
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng(CENTER_TOKYO);
+// Возврат маркера в исходное состояние
 
-  map.setView(CENTER_TOKYO, ZOOM);
+const resetMarker = () => {
+  mainPinMarker.setLatLng(CENTER_TOKYO);
+  map.setView(CENTER_TOKYO, ZOOM).closePopup();
+};
+
+resetButton.addEventListener('click', () => {
+  resetMarker();
+  resetSlider();
 });
 
 // Добавляем новый слой
@@ -90,10 +94,8 @@ const createMarker = ({location, offer, author}) => {
     .bindPopup(createPopup({offer, author}));
 };
 
-similarAdvertisements.forEach(({location, offer, author}) => {
-  createMarker({location, offer, author});
-});
-
 // Код для удаления слоя
 
 // markerGroup.clearLayers();
+
+export {createMarker, resetMarker};

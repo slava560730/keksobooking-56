@@ -39,7 +39,7 @@ function checkValueOfElement (element, value, property = 'textContent') {
 }
 
 function checkValueOfPhoto (element, photos) {
-  if (photos.length > 0) {
+  if (photos && photos.length > 0) {
     fillInnPhotos(element, photos);
   } else {
     removeElement(element);
@@ -84,6 +84,21 @@ function getRandomElement(array) {
   return randomArray;
 }
 
+function syncTypesToRussian(element) {
+  switch (element) {
+    case 'flat':
+      return 'Квартира';
+    case 'palace':
+      return 'Дворец';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'hotel':
+      return 'Отель';
+  }
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
 export {getRandomNumber};
@@ -94,3 +109,4 @@ export {checkValueOfElement};
 export {inclineTermonOfRooms};
 export {inclineTermonOfGuests};
 export {getRandomElement};
+export {syncTypesToRussian};
