@@ -1,16 +1,21 @@
-import {createMarker, resetMarker} from './map.js';
+import {createMarkersForAdverts, resetMarker, MAX_ADVERTISEMENT} from './map.js';
 import {createErrorMessege, clearErrorMessege, clearSuccessMessege, createSuccessMessege, showErrorMessege} from './messeges.js';
 import {formContainer} from './form.js';
 import {resetSlider} from './slider.js';
-
-const MAX_ADVERTISEMENT = 10;
+import {setFilter} from './mapFilter.js';
 
 // Показываем сообщения при получении данных от сервера
 
 const onSuccessGetData = (advertisements) => {
-  advertisements.forEach(({location, offer, author}) => {
-    createMarker({location, offer, author});
-  });
+  createMarkersForAdverts(advertisements);
+  setFilter(() => createMarkersForAdverts(advertisements));
+  formContainer.addEventListener('reset', () => {
+      createMarkersForAdverts(advertisements);
+    });
+
+  // advertisements.forEach(({location, offer, author}) => {
+  //   createMarker({location, offer, author});
+  // });
 };
 
 const onErrorGetData = () => {

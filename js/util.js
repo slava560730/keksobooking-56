@@ -39,7 +39,7 @@ function checkValueOfElement (element, value, property = 'textContent') {
 }
 
 function checkValueOfPhoto (element, photos) {
-  if (photos && photos.length > 0) {
+  if (photos.length > 0) {
     fillInnPhotos(element, photos);
   } else {
     removeElement(element);
