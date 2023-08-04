@@ -11,6 +11,7 @@ const priceContainer = formContainer.querySelector('#price');
 const timeIn = formContainer.querySelector('#timein');
 const timeOut = formContainer.querySelector('#timeout');
 const TitleContainer = formContainer.querySelector('#title');
+const formButton = formContainer.querySelector('.ad-form__submit');
 
 const TYPES = {
   bungalow: 0,
@@ -182,5 +183,5 @@ function enableForm() {
 
 disableForm();
 
-export {enableForm, setUserFormSubmit};
-export {formContainer, typeContainer, TYPES};
+export {enableForm, setUserFormSubmit, formContainer, typeContainer, TYPES, formButton};
+

@@ -606,6 +606,11 @@ fieldset {
 
   background-color: #e4e4de;
   border-radius: 5px;
+
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .ad-form__element--submit {

@@ -2,6 +2,7 @@ import {enableForm, formContainer} from './form.js';
 import {createPopup} from './generateCard.js';
 import {resetSlider} from './slider.js';
 import {checkAdvert} from './mapFilter.js';
+import  {resetImages} from './Photos.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -12,7 +13,7 @@ const CENTER_TOKYO = {
 };
 const ZOOM = 12;
 const DECIMALS = 5;
-const MAX_ADVERTISEMENT = 50;
+const MAX_ADVERTISEMENT = 10;
 
 const SIZE_MAIN_PIN_ICON = [52, 52];
 const SIZE_SIMPLE_PIN_ICON = [40, 40];
@@ -75,6 +76,7 @@ const resetMarker = () => {
 resetButton.addEventListener('click', () => {
   resetMarker();
   resetSlider();
+  resetImages();
 });
 
 // Добавляем новый слой

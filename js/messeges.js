@@ -1,3 +1,5 @@
+import {enableFormButton} from './api.js';
+
 const pageBodyContainer = document.querySelector('body');
 const successTemplate = document.querySelector('#success');
 const successTemplateMessege = successTemplate.content.querySelector('.success');
@@ -21,10 +23,12 @@ const clearSuccessMessege = ()  => {
   if (pageBodyContainer.contains(successMessegeContainer)) {
     document.addEventListener('click', () => {
       successMessegeContainer.remove();
+      enableFormButton();
     });
     document.addEventListener('keydown', (evt) => {
       if (isEscapeKey(evt)) {
         successMessegeContainer.remove();
+        enableFormButton();
       }
     });
   }

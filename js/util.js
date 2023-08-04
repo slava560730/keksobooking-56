@@ -39,7 +39,7 @@ function checkValueOfElement (element, value, property = 'textContent') {
 }
 
 function checkValueOfPhoto (element, photos) {
-  if (photos.length > 0) {
+  if (photos ? photos.length :  0) {
     fillInnPhotos(element, photos);
   } else {
     removeElement(element);
@@ -99,14 +99,16 @@ function syncTypesToRussian(element) {
   }
 }
 
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 const getRandomArrayElement = (elements) => elements[getRandomNumber(0, elements.length - 1)];
 
-export {getRandomNumber};
-export {getRandomFloat};
-export {getRandomArrayElement};
-export {checkValueOfPhoto};
-export {checkValueOfElement};
-export {inclineTermonOfRooms};
-export {inclineTermonOfGuests};
-export {getRandomElement};
-export {syncTypesToRussian};
+export {debounce, getRandomNumber, getRandomFloat, getRandomArrayElement, checkValueOfPhoto, checkValueOfElement, inclineTermonOfRooms, inclineTermonOfGuests, getRandomElement, syncTypesToRussian};
+
