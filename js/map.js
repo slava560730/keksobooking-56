@@ -1,6 +1,8 @@
 import {enableForm, formContainer} from './form.js';
 import {createPopup} from './generateCard.js';
 import {resetSlider} from './slider.js';
+import {checkAdvert} from './mapFilter.js';
+import  {resetImages} from './Photos.js';
 
 const addressContainer = formContainer.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -9,9 +11,14 @@ const CENTER_TOKYO = {
   lat: 35.6895,
   lng: 139.69171,
 };
-const ZOOM = 10;
+const ZOOM = 12;
 const DECIMALS = 5;
+const MAX_ADVERTISEMENT = 10;
 
+const IconUrl = {
+  mainIcon: './img/main-pin.svg',
+  simpleIcon: './img/pin.svg'
+};
 const SIZE_MAIN_PIN_ICON = [52, 52];
 const SIZE_SIMPLE_PIN_ICON = [40, 40];
 const ANCHOR_MAIN_PIN_ICON = [26, 52];
@@ -37,13 +44,13 @@ L.tileLayer(
 // Добавляем иконки и метку
 
 const mainPinIcon = L.icon({
-  iconUrl: './img/main-pin.svg',
+  iconUrl: IconUrl.mainIcon,
   iconSize: SIZE_MAIN_PIN_ICON,
   iconAnchor: ANCHOR_MAIN_PIN_ICON,
 });
 
 const simplePinIcon = L.icon({
-  iconUrl: './img/pin.svg',
+  iconUrl: IconUrl.simpleIcon,
   iconSize: SIZE_SIMPLE_PIN_ICON,
   iconAnchor: ANCHOR_SIMPLE_PIN_ICON,
 });
@@ -70,10 +77,12 @@ const resetMarker = () => {
   map.setView(CENTER_TOKYO, ZOOM).closePopup();
 };
 
-resetButton.addEventListener('click', () => {
+const resetMap = () => {
   resetMarker();
   resetSlider();
-});
+  resetImages();
+};
+resetButton.addEventListener('click', resetMap);
 
 // Добавляем новый слой
 
@@ -94,8 +103,17 @@ const createMarker = ({location, offer, author}) => {
     .bindPopup(createPopup({offer, author}));
 };
 
+const createMarkersForAdverts = (advertsData) => {
+  markerGroup.clearLayers();
+
+  advertsData
+    .filter(({location, offer, author}) => checkAdvert({location, offer, author}))
+    .slice(0, MAX_ADVERTISEMENT)
+    .forEach(({location, offer, author}) => createMarker({location, offer, author}));
+};
+
 // Код для удаления слоя
 
 // markerGroup.clearLayers();
 
-export {createMarker, resetMarker};
+export {createMarker, resetMarker, createMarkersForAdverts, MAX_ADVERTISEMENT};

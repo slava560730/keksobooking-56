@@ -11,8 +11,9 @@ const priceContainer = formContainer.querySelector('#price');
 const timeIn = formContainer.querySelector('#timein');
 const timeOut = formContainer.querySelector('#timeout');
 const TitleContainer = formContainer.querySelector('#title');
+const formButton = formContainer.querySelector('.ad-form__submit');
 
-const TYPES = {
+const TypesPrice = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -20,14 +21,32 @@ const TYPES = {
   palace: 10000
 };
 
+const TypesNames = {
+  bungalow: 'bungalow',
+  flat: 'flat',
+  hotel: 'hotel',
+  house: 'house',
+  palace: 'palace'
+};
+
 const CAPACITY = {
   maxRooms: 100,
   nonGuests: 0
 };
 
-const TITILE_LENGTH = {
+const CapacityError = {
+  maxRooms: 'Количество гостей не должно превышать количество комнат',
+  nonGuests: '100 комнат не для гостей'
+};
+
+const TITLE_LENGTH = {
   maxlength: 100,
   minlength: 30
+};
+
+const errorTitle = {
+  min:' Количество символов должно быть больше 30',
+  max:' Количество символов должно быть меньше 100'
 };
 
 const MAX_PRICE = 100000;
@@ -44,14 +63,14 @@ const pristine = new Pristine(formContainer, {
 // Валидация заголовка объявления
 
 function validateTitle (value) {
-  return value.length >= TITILE_LENGTH.minlength && value.length <= TITILE_LENGTH.maxlength;
+  return value.length >= TITLE_LENGTH.minlength && value.length <= TITLE_LENGTH.maxlength;
 }
 
 function getErrorTitle () {
-  if (TitleContainer.value.length < TITILE_LENGTH.minlength) {
-    return ' Количество символов должно быть больше 30';
-  } else if (TitleContainer.value.length > TITILE_LENGTH.maxlength) {
-    return ' Количество символов должно быть меньше 100';
+  if (TitleContainer.value.length < TITLE_LENGTH.minlength) {
+    return errorTitle.min;
+  } else if (TitleContainer.value.length > TITLE_LENGTH.maxlength) {
+    return errorTitle.max;
   }
 }
 
@@ -60,24 +79,24 @@ function getErrorTitle () {
 function onSyncTypesWithMinPrice () {
   const type = typeContainer.value;
 
-  if (type === 'flat') {
-    priceContainer.placeholder = TYPES.flat;
+  if (type === TypesNames.flat) {
+    priceContainer.placeholder = TypesPrice.flat;
   }
 
-  if (type === 'palace') {
-    priceContainer.placeholder = TYPES.palace;
+  if (type === TypesNames.palace) {
+    priceContainer.placeholder = TypesPrice.palace;
   }
 
-  if (type === 'bungalow') {
-    priceContainer.placeholder = TYPES.bungalow;
+  if (type === TypesNames.bungalow) {
+    priceContainer.placeholder = TypesPrice.bungalow;
   }
 
-  if (type === 'hotel') {
-    priceContainer.placeholder = TYPES.hotel;
+  if (type === TypesNames.hotel) {
+    priceContainer.placeholder = TypesPrice.hotel;
   }
 
-  if (type === 'house') {
-    priceContainer.placeholder = TYPES.house;
+  if (type === TypesNames.house) {
+    priceContainer.placeholder = TypesPrice.house;
   }
 
 }
@@ -97,12 +116,12 @@ typeContainer.addEventListener('change', onSyncTypesWithMinPrice);
 // Валидация цены
 
 function validatePrice () {
-  return Number(priceContainer.value) >= TYPES[typeContainer.value] && Number(priceContainer.value) <= MAX_PRICE;
+  return Number(priceContainer.value) >= TypesPrice[typeContainer.value] && Number(priceContainer.value) <= MAX_PRICE;
 }
 
 function getErrorPriceMessage () {
-  if (Number(priceContainer.value) < TYPES[typeContainer.value]) {
-    return `цена должна быть больше ${  TYPES[typeContainer.value]}`;
+  if (Number(priceContainer.value) < TypesPrice[typeContainer.value]) {
+    return `цена должна быть больше ${  TypesPrice[typeContainer.value]}`;
   }
   if (Number(priceContainer.value) > MAX_PRICE) {
     return `цена должна быть меньше ${  MAX_PRICE}`;
@@ -129,11 +148,11 @@ function getErrorRoomsAndGuestsMessage () {
   const guestsNumber = Number(guestsContainer.value);
 
   if (guestsNumber > roomsNumber) {
-    return 'Количество гостей не должно превышать количество комнат';
+    return CapacityError.maxRooms;
   }
 
   else if (roomsNumber === CAPACITY.maxRooms || guestsNumber === CAPACITY.nonGuests) {
-    return '100 комнат не для гостей';
+    return CapacityError.nonGuests;
   }
 }
 
@@ -182,5 +201,5 @@ function enableForm() {
 
 disableForm();
 
-export {enableForm, setUserFormSubmit};
-export {formContainer, typeContainer, TYPES};
+export {enableForm, setUserFormSubmit, formContainer, typeContainer, TypesPrice, formButton};
+

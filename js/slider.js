@@ -9,7 +9,7 @@ const PRICE = {
 };
 const  PRICE_STEP = 1;
 
-const TYPES = {
+const TypesNames = {
   bungalow: 0,
   flat: 1000,
   hotel: 3000,
@@ -17,7 +17,7 @@ const TYPES = {
   palace: 10000
 };
 
-priceValue.value = TYPES.flat;
+priceValue.value = TypesNames.flat;
 
 // Создаем слайдер
 
@@ -26,7 +26,7 @@ noUiSlider.create(priceSlider, {
     min: PRICE.min,
     max: PRICE.max,
   },
-  start: TYPES.flat,
+  start: TypesNames.flat,
   step: PRICE_STEP,
   connect: 'lower',
   format: {
@@ -44,40 +44,43 @@ priceSlider.noUiSlider.on('update', () => {
 });
 
 // Код синхронизации типа жилища с минимальной ценой
-typeContainer.addEventListener('change', () => {
+
+const onSyncType = () => {
   const type = typeContainer.value;
 
   if (type === 'flat') {
     priceSlider.noUiSlider.updateOptions({
-      start: TYPES.flat,
+      start: TypesNames.flat,
     });
 
   }
 
   if (type === 'palace') {
     priceSlider.noUiSlider.updateOptions({
-      start: TYPES.palace,
+      start: TypesNames.palace,
     });
   }
 
   if (type === 'bungalow') {
     priceSlider.noUiSlider.updateOptions({
-      start: TYPES.bungalow,
+      start: TypesNames.bungalow,
     });
   }
 
   if (type === 'hotel') {
     priceSlider.noUiSlider.updateOptions({
-      start: TYPES.hotel,
+      start: TypesNames.hotel,
     });
   }
 
   if (type === 'house') {
     priceSlider.noUiSlider.updateOptions({
-      start: TYPES.house,
+      start: TypesNames.house,
     });
   }
-});
+};
+
+typeContainer.addEventListener('change', onSyncType);
 
 // Возврат слайдера в исходное состояние
 

@@ -1,24 +1,60 @@
-import {createMarker, resetMarker} from './map.js';
-import {createErrorMessege, clearErrorMessege, clearSuccessMessege, createSuccessMessege, showErrorMessege} from './messeges.js';
-import {formContainer} from './form.js';
+import {createMarkersForAdverts, resetMarker} from './map.js';
+import {createErrorMessage, clearErrorMessage, clearSuccessMessage, createSuccessMessage, showErrorMessage} from './messeges.js';
+import {formContainer, formButton} from './form.js';
 import {resetSlider} from './slider.js';
+import {setFilter} from './mapFilter.js';
+import {debounce} from './util.js';
+import  {resetImages} from './Photos.js';
+
+const RENDER_DELAY = 500;
+const ERROR_MESSAGE = 'Не удалось загрузить данные с сервера';
+const URL = {
+  get: 'https://26.javascript.pages.academy/keksobooking/data',
+  send: 'https://26.javascript.pages.academy/keksobooking/'
+};
+
+// Меняем текст кнопки при отправке
+
+const buttonText = {
+  disabled: 'Публикую',
+  enabled: 'Опубликовать'
+};
+
+const disableFormButton = () => {
+  formButton.textContent = buttonText.disabled;
+  formButton.disabled = true;
+};
+
+// Возвращаем кнопку в исходое состояние
+
+const enableFormButton = () => {
+  formButton.textContent = buttonText.enabled;
+  formButton.disabled = false;
+};
 
 // Показываем сообщения при получении данных от сервера
 
+// const onResetMarkers = () => {
+//   createMarkersForAdverts (advertisements);
+// };
+
 const onSuccessGetData = (advertisements) => {
-  advertisements.forEach(({location, offer, author}) => {
-    createMarker({location, offer, author});
-  });
+  createMarkersForAdverts(advertisements);
+  setFilter(debounce(() => createMarkersForAdverts(advertisements), RENDER_DELAY));
+  const onResetMarkers = () => {
+    createMarkersForAdverts (advertisements);
+  };
+  formContainer.addEventListener('reset', onResetMarkers);
 };
 
 const onErrorGetData = () => {
-  showErrorMessege('Не удалось загрузить данные с сервера');
+  showErrorMessage(ERROR_MESSAGE);
 };
 
 // Получаем данные от сервера
 
 const getData = () => {
-  fetch('https://26.javascript.pages.academy/keksobooking/data')
+  fetch(URL.get)
     .then((response) => {
       if (response.ok) {
         response.json()
@@ -34,8 +70,8 @@ const getData = () => {
 // Показываем ошибку при отправке данных на сервер
 
 const onErrorSendData = () => {
-  createErrorMessege();
-  clearErrorMessege();
+  createErrorMessage();
+  clearErrorMessage();
 };
 
 // Возвращаем форму в исходное состояние при успешной отправке
@@ -44,19 +80,21 @@ const resetForm = () => {
   formContainer.reset();
   resetMarker();
   resetSlider();
+  resetImages();
 };
 
 // Отправляем данные на сервер и очищаем форму
 
 const onSuccessSendData = () => {
-  createSuccessMessege();
-  clearSuccessMessege();
+  createSuccessMessage();
+  clearSuccessMessage();
+  disableFormButton();
   resetForm();
 };
 
 const sendData = (body) => {
 
-  fetch( 'https://26.javascript.pages.academy/keksobooking/',
+  fetch( URL.send,
     {
       method: 'POST',
       body,
@@ -74,4 +112,4 @@ const sendData = (body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, sendData, enableFormButton};
