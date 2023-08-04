@@ -9,18 +9,19 @@ const FILTER_PRICE = {
   min: 10000,
   max: 50000
 };
+const DEFAULT_VALUE = 'any';
 
 const checkType = (Type) => {
   const filterTypeSelect = filterType.value;
 
-  return filterTypeSelect === 'any' || filterTypeSelect === Type;
+  return filterTypeSelect === DEFAULT_VALUE || filterTypeSelect === Type;
 };
 
 const checkPrice = (Price) => {
   const filterPriceSelect = filterPrice.value;
   const advertPrice = Number(Price);
 
-  if (filterPriceSelect === 'any') {
+  if (filterPriceSelect === DEFAULT_VALUE) {
     return true;
   }
   if (filterPriceSelect === 'low') {
@@ -37,13 +38,13 @@ const checkPrice = (Price) => {
 const checkRooms = (Rooms) => {
   const filterRoomSelect = filterRoom.value;
 
-  return filterRoomSelect === 'any' || Number(filterRoomSelect) === Number(Rooms);
+  return filterRoomSelect === DEFAULT_VALUE || Number(filterRoomSelect) === Number(Rooms);
 };
 
 const checkGuests = (Guests) => {
   const filterGuestSelect = filterGuest.value;
 
-  return filterGuestSelect === 'any' || Number(filterGuestSelect) === Number(Guests);
+  return filterGuestSelect === DEFAULT_VALUE || Number(filterGuestSelect) === Number(Guests);
 };
 
 const checkFeature = (Feature) => {

@@ -18,11 +18,10 @@ const createPopup = ({offer, author}) => {
     description,
     photos,
   } = offer;
-
   const CardElement = CardTemplate.cloneNode(true);
   const photoContainer = CardElement.querySelector('.popup__photos');
   const titleContainer = CardElement.querySelector('.popup__title');
-  const adressContainer = CardElement.querySelector('.popup__text--address');
+  const addressContainer = CardElement.querySelector('.popup__text--address');
   const priceContainer = CardElement.querySelector('.popup__text--price');
   const typeContainer =  CardElement.querySelector('.popup__type');
   const capacityContainer =  CardElement.querySelector('.popup__text--capacity');
@@ -30,9 +29,8 @@ const createPopup = ({offer, author}) => {
   const featuresContainer =  CardElement.querySelector('.popup__features');
   const descriptionContainer =  CardElement.querySelector('.popup__description');
   const avatarContainer =  CardElement.querySelector('.popup__avatar');
-
   checkValueOfElement(titleContainer, title);
-  checkValueOfElement(adressContainer, address);
+  checkValueOfElement(addressContainer, address);
   checkValueOfElement(priceContainer, `${price  } ₽/ночь`);
   checkValueOfElement(typeContainer, syncTypesToRussian(type));
   checkValueOfElement(capacityContainer, `${rooms + inclineTermonOfRooms(rooms)  }  для ${  guests + inclineTermonOfGuests(guests)}`);
